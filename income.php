@@ -132,7 +132,8 @@ if (isset($_POST['amount']))
 			}
 		?>
 		
-		Category: (tylko liczba odpowiadająca ..._id z bazy danych)<br /> <input type="number_format"  value="<?php
+		Category: (tylko liczba odpowiadająca ..._id z bazy danych)
+		<br /> <input type="number_format"  value="<?php
 			if (isset($_SESSION['fr_category']))
 			{
 				echo $_SESSION['fr_category'];

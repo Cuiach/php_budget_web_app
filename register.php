@@ -36,7 +36,7 @@
 		if ((strlen($pass1)<3) || (strlen($pass1)>20))
 		{
 			$allRight=false;
-			$_SESSION['e_pass']="Password should have 8 to 20 letters";
+			$_SESSION['e_pass']="Password should have 3 to 20 letters";
 		}
 		
 		if ($pass1!=$pass2)
@@ -53,9 +53,11 @@
 			$_SESSION['e_terms_of_service']="Make sure you accept the terms of service";
 		}				
 		
-/*DO ZMIANY*/		$sekret = "6LcDaVEpAAAAAGaZ-sXXhuG0gDHnSzsoqLYrYqT2"; 
+		$sekret = "6LeqSHApAAAAAM3a_xtNMDJTum4X4NX-DMXnBRn_"; 
+//		$sekret = "6LcDaVEpAAAAAGaZ-sXXhuG0gDHnSzsoqLYrYqT2"; 
 		
 		$check_it = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$sekret.'&response='.$_POST['g-recaptcha-response']);
+
 		
 		$reply = json_decode($check_it);
 		
@@ -64,7 +66,8 @@
 			$allRight=false;
 			$_SESSION['e_bot']="Confirm you are not a bot :)";
 		}		
-		
+
+
 		$_SESSION['fr_username'] = $username;
 		$_SESSION['fr_email'] = $email;
 		$_SESSION['fr_pass1'] = $pass1;
@@ -73,12 +76,10 @@
 		
 		require_once 'database.php';
 	
-//	if(ISSET($_POST['register'])){
 		if($allRight)
 		{
 			try
 			{
-				//$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 				$userQuery = $db->prepare('INSERT INTO users (username, password, email) VALUES (:username, :pass1, :email)');
 				$userQuery->bindValue(':username', $username, PDO::PARAM_STR);
 				$userQuery->bindValue(':pass1', $pass_hash, PDO::PARAM_STR);
@@ -194,7 +195,7 @@
 			}
 		?>	
 		
-<?php/*DO ZMIANY*/?>		<div class="g-recaptcha" data-sitekey="6LcDaVEpAAAAABQePcL_MWsNmm6PlUd88oF_ogzU"></div>
+	<div class="g-recaptcha" data-sitekey="6LeqSHApAAAAAOo_F_g5oqewMCabB8O3WUc0G30k"></div>
 		
 		<?php
 			if (isset($_SESSION['e_bot']))

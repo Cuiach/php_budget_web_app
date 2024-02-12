@@ -73,7 +73,7 @@ if (isset($_POST['date_from']))
 			$dbquery_expenses->bindValue(':date_begin', $date_from, PDO::PARAM_INT);
 			$dbquery_expenses->bindValue(':date_end', $date_to, PDO::PARAM_INT);
 			$dbquery_expenses->execute();
-			
+
 			$rows_expenses = $dbquery_expenses->fetchAll();
 			
 		}catch(PDOException $e)

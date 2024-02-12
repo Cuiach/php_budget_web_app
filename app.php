@@ -16,8 +16,6 @@ if (!isset($_SESSION['logged_id'])) {
 		
 		$user = $userQuery->fetch();
 		
-		//echo $user['id'] . " " . $user['password']; //
-		
 		if ($user && password_verify($password, $user['password'])) {
 			$_SESSION['logged_id'] = $user['id'];
 			unset($_SESSION['bad_attempt']);
@@ -33,9 +31,6 @@ if (!isset($_SESSION['logged_id'])) {
 		exit();
 	}
 }
-
-$usersQuery = $db->query('SELECT * FROM users'); //to nie jest narazone na atak, wiec takie proste query
-$users = $usersQuery->fetchAll();
 ?>
 
 <!DOCTYPE html>
