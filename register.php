@@ -53,8 +53,9 @@
 			$_SESSION['e_terms_of_service']="Make sure you accept the terms of service";
 		}				
 		
-		$sekret = "6LeqSHApAAAAAM3a_xtNMDJTum4X4NX-DMXnBRn_"; 
-//		$sekret = "6LcDaVEpAAAAAGaZ-sXXhuG0gDHnSzsoqLYrYqT2"; 
+		$sekret = "6LeqSHApAAAAAM3a_xtNMDJTum4X4NX-DMXnBRn_"; //secret for web
+		 
+//		$sekret = "6LcDaVEpAAAAAGaZ-sXXhuG0gDHnSzsoqLYrYqT2"; //secret for localhost
 		
 		$check_it = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$sekret.'&response='.$_POST['g-recaptcha-response']);
 
@@ -85,6 +86,25 @@
 				$userQuery->bindValue(':pass1', $pass_hash, PDO::PARAM_STR);
 				$userQuery->bindValue(':email', $email, PDO::PARAM_STR);
 				$userQuery->execute();
+				
+
+				$userQuery = $db->prepare('SELECT * FROM users ORDER BY id DESC LIMIT 1');
+				$userQuery->execute();
+				
+				$row = $userQuery->fetch();
+				
+				$user_id = $row['id'];
+
+
+				$userQuery = $db->prepare('INSERT INTO incomes_category_assigned_to_users (name, user_id) SELECT incomes_category_default.name, users.id FROM incomes_category_default, users WHERE users.id = :user_id');
+				$userQuery->bindValue(':user_id', $user_id, PDO::PARAM_STR);
+				$userQuery->execute();
+				
+				$userQuery = $db->prepare('INSERT INTO expenses_category_assigned_to_users (name, user_id) SELECT expenses_category_default.name, users.id FROM expenses_category_default, users WHERE users.id = :user_id');
+				$userQuery->bindValue(':user_id', $user_id, PDO::PARAM_STR);
+				$userQuery->execute();
+				
+
 				header('Location: login.php');
 				exit();
 			}catch(PDOException $e)
@@ -195,7 +215,8 @@
 			}
 		?>	
 		
-	<div class="g-recaptcha" data-sitekey="6LeqSHApAAAAAOo_F_g5oqewMCabB8O3WUc0G30k"></div>
+	<div class="g-recaptcha" data-sitekey="6LeqSHApAAAAAOo_F_g5oqewMCabB8O3WUc0G30k"></div> <!--//web-->
+<!--	<div class="g-recaptcha" data-sitekey="6LcDaVEpAAAAABQePcL_MWsNmm6PlUd88oF_ogzU"></div> <!--//localhost-->
 		
 		<?php
 			if (isset($_SESSION['e_bot']))
