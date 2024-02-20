@@ -130,7 +130,7 @@ if (isset($_POST['date_from']) || isset($_POST['this_month']) || isset($_POST['l
 
     <section>
 	<!--range date balance-->			
-		<div class="modal fade" id="rangeDateBalance" tabindex="-1" aria-labelledby="signup" aria-hidden="true" <!--data-bs-keyboard="false" data-bs-backdrop="static"-->>
+		<div class="modal fade" id="rangeDateBalance" tabindex="-1" aria-labelledby="signup" aria-hidden="true" data-bs-keyboard="false" data-bs-backdrop="static">
 			<div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
 				<div class="modal-content">
 					<div class="modal-body p-0">
