@@ -59,13 +59,9 @@ if (isset($_POST['email']))
 		$_SESSION['e_terms_of_service']="Make sure you accept the terms of service";
 	}				
 	
-//		$sekret = "6LeqSHApAAAAAM3a_xtNMDJTum4X4NX-DMXnBRn_"; //secret for web
-	 
-	$sekret = "6LcDaVEpAAAAAGaZ-sXXhuG0gDHnSzsoqLYrYqT2"; //secret for localhost
-	
+	include "config1.php";	
 	$check_it = file_get_contents('https://www.google.com/recaptcha/api/siteverify?secret='.$sekret.'&response='.$_POST['g-recaptcha-response']);
 
-	
 	$reply = json_decode($check_it);
 	
 	if ($reply->success==false)
@@ -258,8 +254,8 @@ if (isset($_POST['email']))
 										}
 									?>	
 									
-							<!--		<div class="g-recaptcha" data-sitekey="6LeqSHApAAAAAOo_F_g5oqewMCabB8O3WUc0G30k"></div> <!--//web-->
-									<div class="g-recaptcha" data-sitekey="6LcDaVEpAAAAABQePcL_MWsNmm6PlUd88oF_ogzU"></div> <!--//localhost-->
+									<div class="g-recaptcha" data-sitekey="6LeqSHApAAAAAOo_F_g5oqewMCabB8O3WUc0G30k"></div> <!--//web-->
+							<!--		<div class="g-recaptcha" data-sitekey="6LcDaVEpAAAAABQePcL_MWsNmm6PlUd88oF_ogzU"></div> <!--//localhost-->
 									
 									<?php
 										if (isset($_SESSION['e_bot']))
